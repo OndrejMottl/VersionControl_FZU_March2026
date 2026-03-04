@@ -51,3 +51,7 @@ rsconnect/
 
 # Quarto
 /.quarto/
+**/*.quarto_ipynb
+
+# Ignore presentation output (before compression)
+presentation_raw.pdf

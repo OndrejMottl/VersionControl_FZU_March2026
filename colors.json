@@ -1,9 +1,9 @@
 {
-  "black": "#000000ff",
+  "green": "#008691",
+  "pink": "#ff5b7f",
+  "black": "#040204",
+  "gray": "#e4e4e3",
   "white": "#ffffffff",
-  "grey": "#808080ff",
-  "byzantium": "#8f286fff",
-  "harvest-gold": "#eca400ff",
-  "persian-green": "#1b998bff",
-  "cerulean": "#006992ff"
+  "purple": "#7e1f86",
+  "azure": "#eafdf8"
 }

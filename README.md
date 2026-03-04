@@ -1,53 +1,82 @@
-# Presentation template
+# Version Control FZU — March 2026
 
-Template for a general structure and style of a presentation
+Slides for the **Introduction to GitHub and Version Control** session (FZU, March 2026), built with [Quarto](https://quarto.org/) + [Reveal.js](https://revealjs.com/) and rendered from R.
 
-## General info
+🖥️ **View the slides:** [bit.ly/mottl_prez_fzu_202603](https://bit.ly/mottl_prez_fzu_202603)
 
-This template is using [Quarto](https://quarto.org/) and [Reveal.js](https://revealjs.com) to make a presentation.
+## What is in this repository
+
+- Main slide deck source: `presentation.qmd`
+- Rendered presentation: `index.html`
+- Final PDF handout: `presentation.pdf`
+- Custom Reveal.js theme: `custom_theme.scss`
+- Theme inputs:
+ 	- `colors.json` → auto-generates `_colors.scss`
+ 	- `fonts.json` → auto-generates `_fonts.scss`
+- Rendering helper script: `R/render.R`
+- Assets (logos, figures, exercises, markdown/git/github materials): `Materials/`
+- Reproducible R environment: `renv/`
+
+## Requirements
+
+1. [Quarto](https://quarto.org/docs/getting-started/installation.html)
+2. R (with packages managed by `renv`)
+3. Optional for PDF export: [decktape](https://github.com/astefanutti/decktape)
 
 ## Setup
 
-### Getting started
+Open the project in RStudio or VS Code, then restore R dependencies:
 
-Getting the presentation template is easy. There are two ways to get the template:
-
-1. If a user has a [GitHub account](https://github.com/), the easiest way is to create your own GitHub repo using this GitHub template. More details about how to use GitHub templates are on [GitHub Docs](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-2. Use can download the latest [Release](https://github.com/OndrejMottl/quarto_revealjs_template/releases) of the Workflow as a zip file.
-
-### Installation of Quarto
-
-To install Quarto, follow the instructions on the [Quarto website](https://quarto.org/docs/getting-started/installation.html).
-
-## Edits
-
-Edit the `presentation.qmd` file to create your presentation. The file is divided into sections, each section is a slide.
-
-See the [Quarto documentation](https://quarto.org/docs/) for more information on how to use Quarto.
-
-### Theme
-
-The theme is set by the `custom_theme.scss`, please adjust it to your needs.
-
-See the [demo presentation with all functionality](https://ondrejmottl.github.io/quarto_revealjs_template/)
-
-The default color palette is:
-
-![Color palette](/color_palette.png)
-
-You can adjust the colors in the `custom_theme.scss` file.
-
-### Local rendering
-
-After the edits, the presentation can be rendered locally either:
-
-1. (preferred) Using your IDE (RStudio, VSCode, etc.) and the Quarto extension.
-2. the command line. The command to render the presentation is:
-
-```bash
-quarto render
+```r
+if (!require("renv")) install.packages("renv")
+renv::restore(prompt = FALSE)
 ```
 
-## Publishing
+> The setup chunks in `presentation.qmd` also check and install key packages when needed.
 
-Once rendered, the presentation can be published on GitHub Pages. Go to repo Settings of the repository and set the Pages source `Deploy from a branch`. The webpage will render on every commit and will be available at `https://<username>.github.io/<repo_name>/`.
+## Rendering
+
+### HTML slides
+
+Render from Quarto directly:
+
+```bash
+quarto render presentation.qmd
+```
+
+This creates/updates `index.html`.
+
+### HTML + PDF (via helper script)
+
+Run:
+
+```r
+source("R/render.R")
+```
+
+The script will:
+
+1. Render `presentation.qmd` to `index.html`
+2. Export slides to `presentation_raw.pdf` via `decktape`
+3. Compress `presentation_raw.pdf` to `presentation.pdf`
+
+### PDF-only notes
+
+- `decktape` is required for creating PDF files from Reveal.js slides.
+- `qpdf` is used to compress the raw PDF for easier sharing/upload.
+- If `decktape` is not installed, HTML rendering still works, but PDF export steps will fail.
+
+## Editing the theme
+
+- Edit `colors.json` and `fonts.json` to control palette and typography.
+- During render, corresponding SCSS partials are regenerated automatically.
+- Adjust spacing/layout/typography rules in `custom_theme.scss`.
+
+## Notes
+
+- `index.html` is configured as the primary output file in the Quarto reveal format options.
+- The deck uses embedded resources for portable sharing.
+
+## License
+
+See `LICENSE`.

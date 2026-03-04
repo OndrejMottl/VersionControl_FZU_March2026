@@ -1,5 +1,7 @@
 /*-- scss:defaults --*/
 
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600&display=swap");
+
 // Vertical spacing between blocks of text
 $smallMargin: 5px;
 $blockMargin: 10px;
@@ -17,15 +19,16 @@ $backgroundColor: $white;
 @import "_fonts";
 
 $mainFontSize: 30px;
-$mainFontWeight: 400;
+$mainFontWeight: 300;
 $body-line-height: 1.5;
 
 $headingMargin: 0;
+$headingFont: "Quicksand", sans-serif;
 $headingLineHeight: 1.2;
 $headingLetterSpacing: normal;
-$headingFontWeight: 700;
-$headingFontWeight: normal;
-$headingColor: $byzantium;
+$headingFontWeight: 300;
+$headingColor: $green;
+$headingShadow: 3px 4px 5px $black;
 
 $heading1Size: 3.77em;
 $heading1TextShadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
@@ -37,16 +40,16 @@ $heading4Size: 1em;
 $content-max-width: 900px;
 
 // Mermaid configuration
-$mermaid-bg-color: $white !important;
-$mermaid-edge-color: $black !important;
+$mermaid-bg-color: $green !important;
+$mermaid-edge-color: $pink !important;
 $mermaid-node-fg-color: $body-color !important;
-$mermaid-fg-color: $grey !important;
-$mermaid-fg-color--lighter: lighten($grey, 10%) !important;
-$mermaid-fg-color--lightest: lighten($grey, 20%) !important;
+$mermaid-fg-color: $azure !important;
+$mermaid-fg-color--lighter: lighten($azure, 10%) !important;
+$mermaid-fg-color--lightest: lighten($azure, 20%) !important;
 $mermaid-font-family: $mainFont !important;
-$mermaid-label-bg-color: $white !important;
-$mermaid-label-fg-color: $black !important;
-$mermaid-node-bg-color: $white !important;
+$mermaid-label-bg-color: $green !important;
+$mermaid-label-fg-color: $azure !important;
+$mermaid-node-bg-color: $green !important;
 
 
 /*-- scss:rules --*/
@@ -68,7 +71,7 @@ pre,
 .reveal pre,
 code,
 .reveal code {
-  background-color: lighten($grey, 30%);
+  background-color: lighten($gray, 10%);
   color: $black;
   border-radius: 5px;
 }
@@ -100,21 +103,47 @@ code a,
   text-decoration: underline;
 
   &:hover {
-    color: $persian-green;
-    background-color: $black;
+    color: $white;
+    background-color: $purple;
   }
 }
 
 a,
 .reveal a,
 .reveal .footer a {
-  color: $persian-green;
+  color: $white !important;
+  background-color: $pink !important;
+  padding: $smallMargin;
+  border-radius: 5px;
   text-decoration: underline !important;
 
   &:hover {
-    color: $black !important;
-    background-color: $persian-green !important;
+    color: $pink !important;
+    background-color: $white !important;
   }
+}
+
+/* Keep links readable on green slides */
+.reveal .slides section.bg-green a,
+.reveal .slides section.bg-green .footer a {
+  color: $white !important;
+
+  &:hover {
+    color: $pink !important;
+  }
+}
+
+/* Do not style code line-number anchors as regular links */
+.reveal pre a,
+.reveal pre code a,
+.reveal .sourceCode a {
+  color: inherit !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  text-decoration: none !important;
+  pointer-events: none;
+  cursor: default;
 }
 
 /* Fix for code blocks in HTML output */
@@ -132,7 +161,7 @@ h1 {
   font-weight: $headingFontWeight;
   margin-top: $headingMargin;
   color: $headingColor;
-  text-shadow: 3px 4px 5px $black;
+  text-shadow: $headingShadow;
   text-align: center;
 }
 
@@ -144,7 +173,7 @@ h2 {
   font-weight: $headingFontWeight;
   margin-top: $headingMargin;
   color: $headingColor;
-  text-shadow: 3px 4px 5px $black;
+  text-shadow: $headingShadow;
   text-align: center;
 }
 
@@ -207,6 +236,16 @@ ul ul {
 
 .text-size-body {
   font-size: $mainFontSize !important;
+}
+
+.text-font-roboto {
+  font-family: "Roboto", sans-serif !important;
+  font-weight: $mainFontWeight !important;
+}
+
+.text-font-open-sans {
+  font-family: $headingFont !important;
+  font-weight: $headingFontWeight !important;
 }
 
 .text-bold {
@@ -310,4 +349,10 @@ ul ul {
   transition:
     background-color 0.3s ease,
     border-color 0.3s ease;
+}
+
+/* Exercise callouts */
+.reveal .exercise {
+  background-color: $azure;
+  color: $black;
 }

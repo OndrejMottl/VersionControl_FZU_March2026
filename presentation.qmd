@@ -726,76 +726,6 @@ git init <DIRECTORY>
 
 `r countdown(minutes = 5)`
 
-## Git Clone (repo first)
-
-```{r}
-#| label: git-remote-clone
-knitr::include_graphics("https://biostats-r.github.io/biostats/github/Pics/gittutorial/0_workflow_git.png")
-```
-
-## Git clone (repo first)
-
-Copy (download) from [remote repo]{.text-background-green} to [local]{.text-background-pink} machine
-
-Example of online repo: [OndrejMottl/VersionControl-playground](https://github.com/OndrejMottl/VersionControl-playground)
-
-::::: {.panel-tabset}
-
-### GH Desktop
-
-:::: {.columns}
-
-::: {.column width="50%"}
-1. Open GitHub Desktop
-2. [File]{.text-background-green} → [Clone Repository]{.text-background-pink}
-3. Choose from:
-   - Your GitHub repos
-   - Organization repos
-   - Or paste URL
-4. Select local path
-5. Click [Clone]{.text-background-azure}
-:::
-
-::: {.column width="50%"}
-
-<br>
-
-```{r}
-#| label: git-clone-GH
-knitr::include_graphics("https://docs.github.com/assets/cb-10969/mw-1440/images/help/desktop/clone-file-menu-windows.webp")
-```
-:::
-
-::::
-
-### VS Code
-
-Open [Command Palette]{.text-background-pink} (`Ctrl+Shift+p`)
-
-Paste in URL: `"https://github.com/<OWNER>/<REPO>.git"`
-
-### Command line
-
-```{bash}
-#| label: git-clone-cl
-#| echo: true
-#| eval: false
-#| code-line-numbers: false
-git clone https://github.com/<OWNER>/<REPO>.git <DIRECTORY>
-```
-
-:::::
-
-## [Practical Exercise]{.text-size-heading3} {.exercise .text-center}
-
-<br>
-
-::: {.text-size-heading4 .blockquote} 
-1. Clone a repo (e.g. any repo from [OndrejMottl](https://github.com/OndrejMottl?tab=repositories))
-:::
-
-`r countdown(minutes = 5)`
-
 # [A record of a change]{.bold .r-fit-text .text-color-white} {.bg-green}
 
 ## a commit
@@ -1453,6 +1383,76 @@ knitr::include_graphics("https://cdn.prod.website-files.com/65cb70dea86ef31d62e7
 
 `r countdown(minutes = 5)`
 
+## Git Clone (repo first)
+
+```{r}
+#| label: git-remote-clone
+knitr::include_graphics("https://biostats-r.github.io/biostats/github/Pics/gittutorial/0_workflow_git.png")
+```
+
+## Git clone (repo first)
+
+Copy (download) from [remote repo]{.text-background-green} to [local]{.text-background-pink} machine
+
+Example of online repo: [OndrejMottl/VersionControl-playground](https://github.com/OndrejMottl/VersionControl-playground)
+
+::::: {.panel-tabset}
+
+### GH Desktop
+
+:::: {.columns}
+
+::: {.column width="50%"}
+1. Open GitHub Desktop
+2. [File]{.text-background-green} → [Clone Repository]{.text-background-pink}
+3. Choose from:
+   - Your GitHub repos
+   - Organization repos
+   - Or paste URL
+4. Select local path
+5. Click [Clone]{.text-background-azure}
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+```{r}
+#| label: git-clone-GH
+knitr::include_graphics("https://docs.github.com/assets/cb-10969/mw-1440/images/help/desktop/clone-file-menu-windows.webp")
+```
+:::
+
+::::
+
+### VS Code
+
+Open [Command Palette]{.text-background-pink} (`Ctrl+Shift+p`)
+
+Paste in URL: `"https://github.com/<OWNER>/<REPO>.git"`
+
+### Command line
+
+```{bash}
+#| label: git-clone-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git clone https://github.com/<OWNER>/<REPO>.git <DIRECTORY>
+```
+
+:::::
+
+## [Practical Exercise]{.text-size-heading3} {.exercise .text-center}
+
+<br>
+
+::: {.text-size-heading4 .blockquote} 
+1. Clone a repo (e.g. any repo from [OndrejMottl](https://github.com/OndrejMottl?tab=repositories))
+:::
+
+`r countdown(minutes = 5)`
+
 # [.gitignore]{.bold .r-fit-text .text-color-white} {.bg-green}
 
 ## `.gitignore` file
@@ -1502,6 +1502,7 @@ __pycache__/
 :::
 
 `r countdown(minutes = 5)`
+
 
 # [Handling Mistakes]{.bold .r-fit-text .text-color-white} {.bg-green}
 

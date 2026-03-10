@@ -700,6 +700,16 @@ For existing project
 git init
 ```
 
+Verify git tracking is active
+
+```{bash}
+#| label: git-init-cl-status
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git status
+```
+
 Create new project with git tracking
 
 ```{bash}
@@ -881,7 +891,7 @@ knitr::include_graphics("https://code.visualstudio.com/assets/docs/sourcecontrol
 
 ### Command line
 
-Stage changes:
+Stage a specific file:
 
 ```{bash}
 #| label: git-stage-cl
@@ -891,6 +901,26 @@ Stage changes:
 git add <FILE>
 ```
 
+Stage ALL changes at once:
+
+```{bash}
+#| label: git-stage-all-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git add .
+```
+
+Check what is staged:
+
+```{bash}
+#| label: git-status-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git status
+```
+
 Unstage changes:
 
 ```{bash}
@@ -898,7 +928,7 @@ Unstage changes:
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
-git reset <FILE>
+git restore --staged <FILE>
 ```
 
 :::::
@@ -952,12 +982,25 @@ knitr::include_graphics("https://code.visualstudio.com/assets/docs/sourcecontrol
 
 ### Command line
 
+Stage all tracked files and commit in one step:
+
 ```{bash}
 #| label: git-commit-cl
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
 git commit -am "commit message"
+```
+
+⚠️ The `-a` flag skips **new (untracked) files** — use the two-step approach for those:
+
+```{bash}
+#| label: git-commit-cl-safe
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git add .
+git commit -m "commit message"
 ```
 
 :::::
@@ -1158,7 +1201,27 @@ Add a remote to existing local repo (only once):
 git remote add origin https://github.com/<OWNER>/<REPO>
 ```
 
-Push local to remote (GitHub):
+Verify the remote was added:
+
+```{bash}
+#| label: git-remote-verify-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git remote -v
+```
+
+First push — sets the upstream tracking branch:
+
+```{bash}
+#| label: git-push-cl-first
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git push -u origin main
+```
+
+Subsequent pushes:
 
 ```{bash}
 #| label: git-push-cl
@@ -1240,7 +1303,7 @@ knitr::include_graphics("https://code.visualstudio.com/assets/docs/sourcecontrol
 
 ### Command line
 
-Pull from remote (GitHub) to local:
+Download AND merge remote changes:
 
 ```{bash}
 #| label: git-pull-cl
@@ -1248,6 +1311,26 @@ Pull from remote (GitHub) to local:
 #| eval: false
 #| code-line-numbers: false
 git pull
+```
+
+Download only — preview changes without merging:
+
+```{bash}
+#| label: git-fetch-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git fetch
+```
+
+Download and rebase (cleaner history, avoids merge commits):
+
+```{bash}
+#| label: git-pull-rebase-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git pull --rebase
 ```
 
 :::::
@@ -1433,8 +1516,20 @@ Paste in URL: `"https://github.com/<OWNER>/<REPO>.git"`
 
 ### Command line
 
+Clone into a new folder named after the repo:
+
 ```{bash}
 #| label: git-clone-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git clone https://github.com/<OWNER>/<REPO>.git
+```
+
+Clone into a specific folder name:
+
+```{bash}
+#| label: git-clone-cl-dir
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
@@ -1541,12 +1636,24 @@ Write [Git: Undo Last Commit]{.text-background-azure}
 
 ### Command line
 
+Undo last commit but **keep** changes staged:
+
 ```{bash}
 #| label: git-undo-commit-cl
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
-git reset --soft HEAD@{1}
+git reset --soft HEAD~1
+```
+
+Undo last commit and **unstage** changes (files remain modified):
+
+```{bash}
+#| label: git-undo-commit-cl-mixed
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git reset --mixed HEAD~1
 ```
 
 :::::
@@ -1597,7 +1704,27 @@ knitr::include_graphics("https://www.gitkraken.com/wp-content/uploads/2022/03/gi
 
 ### Command line
 
-Copy the **SHA** of the last commit and reverto to that commit:
+First, find the SHA of the commit to revert:
+
+```{bash}
+#| label: git-log-oneline-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git log --oneline
+```
+
+✅ **Safe option** — create a new "undo" commit (recommended for shared repos):
+
+```{bash}
+#| label: git-revert-commit-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git revert <SHA>
+```
+
+⚠️ **Dangerous option** — rewrite history (never do on shared branches!):
 
 ```{bash}
 #| label: git-reset-commit-cl
@@ -1605,16 +1732,8 @@ Copy the **SHA** of the last commit and reverto to that commit:
 #| eval: false
 #| code-line-numbers: false
 git reset --hard <SHA>
-```
-
-Force push to update remote:
-
-```{bash}
-#| label: git-reset-commit-cl-push
-#| echo: true
-#| eval: false
-#| code-line-numbers: false
 git push --force
+
 ```
 
 :::::
@@ -1777,12 +1896,24 @@ knitr::include_graphics("https://code.visualstudio.com/assets/docs/sourcecontrol
 
 ### Command line
 
+Create a branch (stays on current branch):
+
 ```{bash}
 #| label: git-make-branch-cl
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
 git branch <BRANCH-NAME>
+```
+
+Create AND switch to the new branch in one step (recommended):
+
+```{bash}
+#| label: git-make-branch-cl-switch
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git switch -c <BRANCH-NAME>
 ```
 
 :::::
@@ -1832,8 +1963,30 @@ knitr::include_graphics("https://code.visualstudio.com/assets/docs/sourcecontrol
 
 ### Command line
 
+List all branches:
+
+```{bash}
+#| label: git-list-branch-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git branch -a
+```
+
+Switch to a branch (modern syntax):
+
 ```{bash}
 #| label: git-switch-branch-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git switch <BRANCH-NAME>
+```
+
+Classic syntax (still widely used):
+
+```{bash}
+#| label: git-checkout-branch-cl
 #| echo: true
 #| eval: false
 #| code-line-numbers: false
@@ -2072,7 +2225,17 @@ Select [Git: Delete branch ...]{.text-background-azure}
 
 ### Command line
 
-To delete a [local]{.text-background-pink} branch
+List all branches:
+
+```{bash}
+#| label: git-list-branch-delete-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git branch -a
+```
+
+Delete [local]{.text-background-pink} branch (safe — only works if fully merged):
 
 ```{bash}
 #| label: git-delete-branch-local-cl
@@ -2082,7 +2245,17 @@ To delete a [local]{.text-background-pink} branch
 git branch -d <BRANCH-NAME>
 ```
 
-To delete a [remote]{.text-background-green} branch on GitHub
+Force delete [local]{.text-background-pink} branch (even if unmerged):
+
+```{bash}
+#| label: git-force-delete-branch-local-cl
+#| echo: true
+#| eval: false
+#| code-line-numbers: false
+git branch -D <BRANCH-NAME>
+```
+
+Delete [remote]{.text-background-green} branch on GitHub:
 
 ```{bash}
 #| label: git-delete-branch-remote-cl
